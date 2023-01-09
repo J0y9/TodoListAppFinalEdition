@@ -1,6 +1,7 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Net.Http;
 using System.Net.Http.Json;
 using TodoListAppFinalEdition.Client.Services;
@@ -20,10 +21,11 @@ namespace TodoListAppFinalEdition.Client.Pages
         protected ILocalStorageService? LocalStorage { get; set; }
         [Inject]
         public  NavigationManager? NavigationManager { get; set; }
+        [Inject]
         public IEnumerable<TodoItem>? Items { get; set; }
         protected string? additem;
         protected UserDto user = new UserDto();
-
+        protected string showError;
         protected override async Task OnInitializedAsync()
         {
             Items = await TodoService!.GetItems();
@@ -48,15 +50,22 @@ namespace TodoListAppFinalEdition.Client.Pages
         protected async Task HandleLogin()
         {
             var result = await httpClient!.PostAsJsonAsync("api/auth/login", user);
+           
             var token = await result.Content.ReadAsStringAsync();
 
-            Console.WriteLine(token);
-            if(token.Length> 10)
+            
+            if(result.IsSuccessStatusCode)
             {
                 await LocalStorage!.SetItemAsync("token", token);
                 await AuthStateProvider!.GetAuthenticationStateAsync();
                 NavigationManager!.NavigateTo("/todo", true);
 
+            }
+            else 
+            {
+                showError = token;
+                
+                
             }
         }
         protected async Task req()

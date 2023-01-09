@@ -12,7 +12,7 @@ else
 
 
     <section class="vh-100" style="background-color: #ffff;">
-        <div class="container py-5 h-100">
+        <div class=" py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col col-lg-9 col-xl-7">
                     <div class="card rounded-3">
@@ -30,14 +30,14 @@ else
 
                                 <div class="col-12">
                                     <button type="button" class="btn btn-success" @onclick="Add">Add</button>
-
                                 </div>
+                                
 
-                                <div class="col-12">
-                                    <button type="submit" class="btn btn-warning">Get tasks</button>
-                                </div>
+                                
                             </form>
-
+                            <div class="text-xl-start">
+                                    <span> Todos: @Items.Count(t=> !t.IsDone)</span>
+                                </div>
                             <table class="table mb-4">
 
                                 <thead>
@@ -60,22 +60,14 @@ else
 
                                             <td><input class="border-0" @bind="todo.Title" /></td>
                                             <td>
-                                                <div class="container">
-
-                                                    <div class="well well-sm text-center">
-                                                        <div class="btn-group" data-toggle="buttons">
-
-                                                            
-                                                                <input type="checkbox" autocomplete="off" >
-                                                            
-                                                            </div>
-                                                    </div>
-                                                </div>
-                                    </td>
+                                                <label class="container">
+                                                <input type="checkbox" @bind="todo.IsDone">
+                                                <span class="checkmark"></span>
+                                                </label>
+                                            </td>
                                             <td>
                                                 <button type="submit" class="btn btn-danger" @onclick=@(() => Delete(todo.Id))>Delete</button>
-                                                <button type="submit" class="btn btn-success ms-1">Finished</button>
-                                                <button type="submit" class="btn btn-success ms-1" @onclick=@(() => Edit(todo))>Edit</button>
+                                                <button type="submit" class="btn btn-success ms-1" @onclick=@(() => Edit(todo))>SaveChanges</button>
                                             </td>
 
                                         </tr>
