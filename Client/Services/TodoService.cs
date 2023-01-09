@@ -15,7 +15,7 @@ public class TodoService : ITodoService
     public async Task<IEnumerable<TodoItem>> GetItems()
     {
         var items = await _httpClient.GetFromJsonAsync<IEnumerable<TodoItem>>("api/todo");
-        return items;
+        return items!;
     }
 
     public async Task CreateItem(TodoItem item)

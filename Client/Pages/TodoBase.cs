@@ -13,61 +13,61 @@ namespace TodoListAppFinalEdition.Client.Pages
         [Inject]
         public ITodoService? TodoService { get; set; }
         [Inject]
-        protected HttpClient httpClient { get; set; }
+        protected HttpClient? httpClient { get; set; }
         [Inject]
-        protected AuthenticationStateProvider AuthStateProvider { get; set; }
+        protected AuthenticationStateProvider? AuthStateProvider { get; set; }
         [Inject]
-        protected ILocalStorageService LocalStorage { get; set; }
+        protected ILocalStorageService? LocalStorage { get; set; }
         [Inject]
-        public  NavigationManager NavigationManager { get; set; }
-        public IEnumerable<TodoItem> Items { get; set; }
-        protected string additem;
+        public  NavigationManager? NavigationManager { get; set; }
+        public IEnumerable<TodoItem>? Items { get; set; }
+        protected string? additem;
         protected UserDto user = new UserDto();
 
         protected override async Task OnInitializedAsync()
         {
-            Items = await TodoService.GetItems();
+            Items = await TodoService!.GetItems();
         }
 
         protected void Edit(TodoItem item)
         {
-            TodoService.UpdateItem(item);
+            TodoService!.UpdateItem(item);
         }
         protected void Delete(int id)
         {
-            TodoService.DeleteItem(id);
-            Items = Items.Where(x => x.Id != id);
+            TodoService!.DeleteItem(id);
+            Items = Items!.Where(x => x.Id != id);
         }
         protected void Add()
         {
-            TodoService.CreateItem(new TodoItem() {Title = additem,IsDone = false});
+            TodoService!.CreateItem(new TodoItem() {Title = additem!,IsDone = false});
             additem = "";
             NavigationManager?.NavigateTo("/todo", true);
 
         }
         protected async Task HandleLogin()
         {
-            var result = await httpClient.PostAsJsonAsync("api/auth/login", user);
+            var result = await httpClient!.PostAsJsonAsync("api/auth/login", user);
             var token = await result.Content.ReadAsStringAsync();
 
             Console.WriteLine(token);
             if(token.Length> 10)
             {
-                await LocalStorage.SetItemAsync("token", token);
-                await AuthStateProvider.GetAuthenticationStateAsync();
-                NavigationManager.NavigateTo("/todo", true);
+                await LocalStorage!.SetItemAsync("token", token);
+                await AuthStateProvider!.GetAuthenticationStateAsync();
+                NavigationManager!.NavigateTo("/todo", true);
 
             }
         }
         protected async Task req()
         {
-            var result = await httpClient.PostAsJsonAsync("api/auth/register", user);
+            var result = await httpClient!.PostAsJsonAsync("api/auth/register", user);
         }
         protected async Task Logout()
         {
-            await LocalStorage.RemoveItemAsync("token");
-            await AuthStateProvider.GetAuthenticationStateAsync();
-            NavigationManager.NavigateTo("/", true);
+            await LocalStorage!.RemoveItemAsync("token");
+            await AuthStateProvider!.GetAuthenticationStateAsync();
+            NavigationManager!.NavigateTo("/", true);
         }
 
     }

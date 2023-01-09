@@ -23,7 +23,7 @@ else
                             <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
                                 <div class="col-12">
                                     <div class="form-outline">
-                                        <input type="text" id="form1" class="form-control" @bind="additem" />
+                                        <input type="text" id="todo" class="" @bind="additem" />
 
                                     </div>
                                 </div>
@@ -43,7 +43,7 @@ else
                                 <thead>
 
                                     <tr>
-                                        <th scope="col">.</th>
+
                                         <th scope="col">Todo item</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Actions</th>
@@ -55,11 +55,23 @@ else
                                         <tr>
 
 
-                                            <li></li>
+
 
 
                                             <td><input class="border-0" @bind="todo.Title" /></td>
-                                            <td>In progress</td>
+                                            <td>
+                                                <div class="container">
+
+                                                    <div class="well well-sm text-center">
+                                                        <div class="btn-group" data-toggle="buttons">
+
+                                                            
+                                                                <input type="checkbox" autocomplete="off" >
+                                                            
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                    </td>
                                             <td>
                                                 <button type="submit" class="btn btn-danger" @onclick=@(() => Delete(todo.Id))>Delete</button>
                                                 <button type="submit" class="btn btn-success ms-1">Finished</button>
