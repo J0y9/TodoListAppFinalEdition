@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.JSInterop;
 using System.Net.Http;
 using System.Net.Http.Json;
 using TodoListAppFinalEdition.Client.Services;
@@ -23,6 +24,8 @@ namespace TodoListAppFinalEdition.Client.Pages
         public  NavigationManager? NavigationManager { get; set; }
         [Inject]
         public IEnumerable<TodoItem>? Items { get; set; }
+        [Inject]
+        protected IJSRuntime Js { get; set; }
         protected string? additem;
         protected UserDto user = new UserDto();
         protected string showError;
@@ -39,6 +42,15 @@ namespace TodoListAppFinalEdition.Client.Pages
         {
             TodoService!.DeleteItem(id);
             Items = Items!.Where(x => x.Id != id);
+
+            //var confirmed =  await Js.InvokeAsync<bool>("confirm", "Are you sure?");
+            //if (confirmed)
+            //{
+            //await TodoService.DeleteItem(id);
+            //    Items = Items!.Where(x => x.Id != id);
+
+            //}
+
         }
         protected void Add()
         {

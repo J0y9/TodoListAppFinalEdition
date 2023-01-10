@@ -11,7 +11,7 @@
         <div class="wrapper">
             <div id="formContent">
         <h2 class="active"> Sign In </h2>
-        <form>
+        <form @onsubmit=HandleLogin>
             @*<div>
                 <label for="username">Username </label>
                 <input  id="username"  @bind="user.Username" name="login" />
@@ -27,7 +27,8 @@
                 <span>@showError</span>
             </div>
 
-            <input type="button"  @onclick="HandleLogin"  value="Log In">
+            @*<input type="button"  @onclick="HandleLogin"  value="Log In">*@
+            <button class="btn btn-primary shadow1">Login</button>
         </form>
     </div>
     
