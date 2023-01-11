@@ -12,6 +12,8 @@ namespace TodoListAppFinalEdition.Client.Pages
 {
     public class TodoBase : ComponentBase
     {
+        [Parameter]
+        public int Id { get; set; }
         [Inject]
         public ITodoService? TodoService { get; set; }
         [Inject]
@@ -58,9 +60,9 @@ namespace TodoListAppFinalEdition.Client.Pages
             NavigationManager?.NavigateTo("/todo", true);
 
         }
-        protected async Task HandleLogin()
+        protected async Task HandleLogin(int userId)
         {
-            var result = await httpClient!.PostAsJsonAsync("api/auth/login", user);
+            var result = await httpClient!.PostAsJsonAsync($"api/auth/login/{userId}", user);
            
             var token = await result.Content.ReadAsStringAsync();
 
