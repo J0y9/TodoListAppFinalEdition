@@ -9,8 +9,8 @@ namespace TodoListAppFinalEdition.Shared
         public string Title { get; set; } = "";
         [DefaultValue(false)]
         public bool IsDone { get; set; }
-        //public virtual User User { get; set; }
-        //public int UserId { get; set; }
+        public virtual User User { get; set; }
+        public int UserId { get; set; }
         
 
     }

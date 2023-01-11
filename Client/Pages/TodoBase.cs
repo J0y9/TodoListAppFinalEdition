@@ -12,6 +12,8 @@ namespace TodoListAppFinalEdition.Client.Pages
 {
     public class TodoBase : ComponentBase
     {
+        [Parameter]
+        public int Id { get; set; }
         [Inject]
         public ITodoService? TodoService { get; set; }
         [Inject]
@@ -38,18 +40,17 @@ namespace TodoListAppFinalEdition.Client.Pages
         {
             TodoService!.UpdateItem(item);
         }
-        protected void Delete(int id)
+        protected async Task Delete(int id)
         {
-            TodoService!.DeleteItem(id);
-            Items = Items!.Where(x => x.Id != id);
+            
 
-            //var confirmed =  await Js.InvokeAsync<bool>("confirm", "Are you sure?");
-            //if (confirmed)
-            //{
-            //await TodoService.DeleteItem(id);
-            //    Items = Items!.Where(x => x.Id != id);
+            var confirmed = await Js.InvokeAsync<bool>("confirm", "Are you sure?");
+            if (confirmed)
+            {
+                await TodoService.DeleteItem(id);
+                Items = Items!.Where(x => x.Id != id);
 
-            //}
+            }
 
         }
         protected void Add()
@@ -59,9 +60,9 @@ namespace TodoListAppFinalEdition.Client.Pages
             NavigationManager?.NavigateTo("/todo", true);
 
         }
-        protected async Task HandleLogin()
+        protected async Task HandleLogin(int userId)
         {
-            var result = await httpClient!.PostAsJsonAsync("api/auth/login", user);
+            var result = await httpClient!.PostAsJsonAsync($"api/auth/login/{userId}", user);
            
             var token = await result.Content.ReadAsStringAsync();
 
