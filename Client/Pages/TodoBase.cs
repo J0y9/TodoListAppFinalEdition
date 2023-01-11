@@ -38,18 +38,17 @@ namespace TodoListAppFinalEdition.Client.Pages
         {
             TodoService!.UpdateItem(item);
         }
-        protected void Delete(int id)
+        protected async Task Delete(int id)
         {
-            TodoService!.DeleteItem(id);
-            Items = Items!.Where(x => x.Id != id);
+            
 
-            //var confirmed =  await Js.InvokeAsync<bool>("confirm", "Are you sure?");
-            //if (confirmed)
-            //{
-            //await TodoService.DeleteItem(id);
-            //    Items = Items!.Where(x => x.Id != id);
+            var confirmed = await Js.InvokeAsync<bool>("confirm", "Are you sure?");
+            if (confirmed)
+            {
+                await TodoService!.DeleteItem(id);
+                Items = Items!.Where(x => x.Id != id);
 
-            //}
+            }
 
         }
         protected void Add()
