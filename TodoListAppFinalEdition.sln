@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListAppFinalEdition.Cli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListAppFinalEdition.Shared", "Shared\TodoListAppFinalEdition.Shared.csproj", "{BAB3BBA7-C28D-484B-AF78-C3588AD12095}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListWebAPI", "..\TodoListWebAPI\TodoListWebAPI.csproj", "{07F5FB82-DF34-434E-AC73-7573355ACA03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListWebAPI", "TodoListWebAPI\TodoListWebAPI.csproj", "{7EA3B7A5-AAB2-43E8-B9E9-527201858A26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{BAB3BBA7-C28D-484B-AF78-C3588AD12095}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAB3BBA7-C28D-484B-AF78-C3588AD12095}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAB3BBA7-C28D-484B-AF78-C3588AD12095}.Release|Any CPU.Build.0 = Release|Any CPU
-		{07F5FB82-DF34-434E-AC73-7573355ACA03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{07F5FB82-DF34-434E-AC73-7573355ACA03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{07F5FB82-DF34-434E-AC73-7573355ACA03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{07F5FB82-DF34-434E-AC73-7573355ACA03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EA3B7A5-AAB2-43E8-B9E9-527201858A26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EA3B7A5-AAB2-43E8-B9E9-527201858A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EA3B7A5-AAB2-43E8-B9E9-527201858A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EA3B7A5-AAB2-43E8-B9E9-527201858A26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
