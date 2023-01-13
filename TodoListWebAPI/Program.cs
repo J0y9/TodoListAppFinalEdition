@@ -66,6 +66,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+// automaticlly update the database on start
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
