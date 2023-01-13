@@ -24,7 +24,7 @@ namespace TodoListAppFinalEdition.Client
             _httpClient.DefaultRequestHeaders.Authorization = null;
             if(!string.IsNullOrEmpty(token) )
             {
-
+                
                identity = new ClaimsIdentity(ParseClaimsFromJwt(token),"jwt");
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",token.Replace("\"",""));
             }

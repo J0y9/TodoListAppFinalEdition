@@ -17,6 +17,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
+
 // new // show button in Swagger To Authorize for test
 builder.Services.AddSwaggerGen(options => {
     options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
@@ -42,6 +43,7 @@ builder.Services.AddCors(options =>
             policy.AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod();
+            
         });
 });
 // add authentication to api so we dont get error when we are not authrized
@@ -71,9 +73,9 @@ using (var scope = app.Services.CreateScope())
     var context = services.GetRequiredService<TodoContext>();
     context.Database.Migrate();
 }
+app.UseCors();
 app.UseHttpsRedirection();
 app.UseAuthentication(); // must be apove the authorization !!
 app.UseAuthorization();
-app.UseCors();
 app.MapControllers();
 app.Run();

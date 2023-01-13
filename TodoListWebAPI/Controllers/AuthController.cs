@@ -49,7 +49,7 @@ namespace TodoListWebAPI.Controllers
         
 
         [HttpPost("register")]
-        public  ActionResult<User> Register(UserDto inputUser)
+        public  async Task<ActionResult<User>> Register(UserDto inputUser)
         {
             if (inputUser == null)
                 return BadRequest(ModelState);
@@ -57,7 +57,7 @@ namespace TodoListWebAPI.Controllers
                 return BadRequest(ModelState);
             _userService.CreatePassWordHash(inputUser.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
-            var user = _userService.AddUser(new User()
+            var user = await _userService.AddUser(new User()
             {
                 Username = inputUser.Username,
                 PasswordHash = passwordHash,
@@ -66,18 +66,20 @@ namespace TodoListWebAPI.Controllers
             }) ;
             return Ok(user);
         }
-        [HttpPost("login/{userId}")]
-        public  ActionResult<string> Login(UserDto inputUser, int userId)
+        [HttpPost("login")]
+        public  ActionResult<string> Login(UserDto inputUser)
         {
-            var user = _userService.GetUser(userId);
+
+            var user = _userService.GetUser(inputUser.Username);
+            if(user == null) return BadRequest(ModelState);
             if (inputUser.Username == string.Empty && inputUser.Password == string.Empty)
             {
                 return BadRequest("please enter user name and password");
             }
             else if (user.Username != inputUser.Username)
-                return BadRequest("Wrong Username or Password");
+                return BadRequest("Wrong Username");
             else if (!_userService.VerifyPasswordHash(inputUser.Password, user.PasswordHash!, user.PasswordSalt!))
-                return BadRequest("Wrong Username or Password");
+                return BadRequest("Wrong Password");
 
             string token = _userService.CreateToken(user);
             return Ok(token);

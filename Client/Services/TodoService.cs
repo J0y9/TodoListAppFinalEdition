@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using Microsoft.AspNetCore.Http;
+using System.Net.Http.Json;
 using TodoListAppFinalEdition.Shared;
 
 namespace TodoListAppFinalEdition.Client.Services;
@@ -12,8 +13,12 @@ public class TodoService : ITodoService
         _httpClient = httpClient;
     }
 
+
+    
     public async Task<IEnumerable<TodoItem>> GetItems()
     {
+        
+
         var items = await _httpClient.GetFromJsonAsync<IEnumerable<TodoItem>>("api/todo");
         return items!;
     }
@@ -38,5 +43,6 @@ public class TodoService : ITodoService
         var response = await result.Content.ReadFromJsonAsync<TodoItem>();
     }
 
+    
     
 }

@@ -1,6 +1,8 @@
 ﻿@page "/todo"
-@inherits TodoBase
+@inherits MainBase
+
 @using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Http;
 @attribute [Authorize]
 
 @if (Items == null)

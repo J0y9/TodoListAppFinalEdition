@@ -8,6 +8,7 @@ using TodoListAppFinalEdition.Client.Services;
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7136/") });
 builder.Services.AddScoped<ITodoService, TodoService>();

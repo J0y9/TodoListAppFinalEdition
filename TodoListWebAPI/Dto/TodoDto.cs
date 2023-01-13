@@ -6,8 +6,9 @@ namespace TodoListWebAPI.Dto
     {
         public string Title { get; set; } = string.Empty;
         [DefaultValue(false)]
-        public bool IsDone { get; set; } 
-
+        public bool IsDone { get; set; }
         
+        //public int userId { get; set; }
+
     }
 }

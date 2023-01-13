@@ -46,7 +46,7 @@ namespace TodoListWebAPI.Services.UserServices
         public string CreateToken(User user)
         {
             List<Claim> myClaims = new List<Claim>() {
-                new Claim(ClaimTypes.Name,user.Username)
+                new Claim("userId",user.Id.ToString())
                 
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
@@ -54,6 +54,7 @@ namespace TodoListWebAPI.Services.UserServices
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
             var token = new JwtSecurityToken(
                 claims: myClaims,
+                
                 expires: DateTime.Now.AddDays(1),
                 signingCredentials: creds);
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
@@ -65,14 +66,14 @@ namespace TodoListWebAPI.Services.UserServices
             return await _context.Users.ToListAsync();
         }
 
-        public User GetUser(int Id)
+        public User GetUser(string userName)
         {
-            var user =  _context.Users.Where(u => u.Id == Id).FirstOrDefault();
+            var user =  _context.Users.Where(u => u.Username == userName).FirstOrDefault();
             if(user!=null)
             {
                 return user;
             }
-            return null;
+            return null!;
         }
     }
 }

@@ -26,8 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TodoListAppv1\Server\TodoListAppFinalEdition.Server.csproj" />
-    <ProjectReference Include="..\..\TodoListAppv1\Shared\TodoListAppFinalEdition.Shared.csproj" />
+    <ProjectReference Include="..\Server\TodoListAppFinalEdition.Server.csproj" />
+    <ProjectReference Include="..\Shared\TodoListAppFinalEdition.Shared.csproj" />
   </ItemGroup>
 
 </Project>

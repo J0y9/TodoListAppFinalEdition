@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TodoListAppFinalEdition.Server;
+using System.Security.Claims;
 using TodoListAppFinalEdition.Shared;
 using TodoListWebAPI.Dto;
 using TodoListWebAPI.Interfaces;
@@ -11,24 +11,29 @@ namespace TodoListWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class TodoController : ControllerBase
     {
         private readonly ITodoRepository _repository;
         private readonly IMapper _mapper;
 
-        public TodoController(ITodoRepository repository,IMapper mapper)
+        public TodoController(ITodoRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
-
+        
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TodoItem>>> GetItems()
         {
+            
             var items = await _repository.GetItems();
             return Ok(items);
         }
+
+
+
 
         [HttpPost]
         public async Task<ActionResult<TodoItem>> CreateItem(TodoDto item)
@@ -44,7 +49,7 @@ namespace TodoListWebAPI.Controllers
         }
 
         [HttpPut("{itemId}")]
-        public async Task<ActionResult<TodoItem>> UpdateItem(int itemId,TodoItem item)
+        public async Task<ActionResult<TodoItem>> UpdateItem(int itemId,TodoDto item)
 
         {
             if (item == null)
@@ -52,7 +57,10 @@ namespace TodoListWebAPI.Controllers
             
             if (!ModelState.IsValid)
                 return BadRequest();
-            var itemUpdate = await _repository.UpdateItem(item);
+            var mapItem = _mapper.Map<TodoItem>(item);
+            mapItem.Id = itemId;
+
+            var itemUpdate = await _repository.UpdateItem(mapItem);
             return Ok(itemUpdate);
 
         }
@@ -65,6 +73,7 @@ namespace TodoListWebAPI.Controllers
                 return NotFound();
             if (!ModelState.IsValid)
                 return BadRequest();
+            
             var itemDelete = await _repository.DeleteItem(itemToDelete);
             return Ok(itemDelete);
         }
