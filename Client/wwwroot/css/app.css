@@ -65,7 +65,7 @@ a, .btn-link {
     color: #fff;
     background-color: #56baed;
     border-color: #1861ac;
-    padding: 9px 95px;
+    /*padding: 9px 95px;*/
     margin: 18px 6px 40px 20px;
     border: none;
 }

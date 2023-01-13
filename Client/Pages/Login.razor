@@ -25,10 +25,15 @@
             <input type="password" id="password" @bind="user.Password" name="login" placeholder="password">
             <div class="alert-danger">
                 <span>@showError</span>
+            </div><div class="alert-success">
+                <span>@showSuccess</span>
             </div>
 
             @*<input type="button"  @onclick="HandleLogin"  value="Log In">*@
+
             <button class="btn btn-primary shadow1">Login</button>
+            <button type="button" @onclick="req" class="btn btn-primary shadow1">Register</button>
+
         </form>
     </div>
     

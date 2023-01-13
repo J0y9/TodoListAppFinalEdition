@@ -1,14 +1,6 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.JSInterop;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Security.Claims;
-using System.Text.Json;
 using TodoListAppFinalEdition.Client.Services;
-using TodoListAppFinalEdition.Shared;
 
 namespace TodoListAppFinalEdition.Client.Pages
 {
@@ -33,9 +25,9 @@ namespace TodoListAppFinalEdition.Client.Pages
 
         protected async Task Logout()
         {
+            NavigationManager!.NavigateTo("/", true);
             await LocalStorage!.RemoveItemAsync("token");
             await AuthStateProvider!.GetAuthenticationStateAsync();
-            NavigationManager!.NavigateTo("/", true);
         }
 
     }

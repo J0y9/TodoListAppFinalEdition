@@ -7,6 +7,7 @@ namespace TodoListAppFinalEdition.Client.Pages
     {
         protected UserDto user = new ();
         protected string showError="";
+        protected string showSuccess="";
 
         protected async Task Logini()
         {
@@ -33,6 +34,17 @@ namespace TodoListAppFinalEdition.Client.Pages
         protected async Task req()
         {
             var result = await httpClient!.PostAsJsonAsync("api/auth/register", user);
+            if(result.IsSuccessStatusCode)
+            {
+                showError = "";
+                showSuccess = "Account Successfuly Created";
+                
+            }
+            else
+            {
+                showSuccess = "";
+                showError = "username already in use";
+            }
         }
     }
 }

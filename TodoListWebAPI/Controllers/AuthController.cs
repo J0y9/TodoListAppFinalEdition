@@ -52,11 +52,14 @@ namespace TodoListWebAPI.Controllers
         public  async Task<ActionResult<User>> Register(UserDto inputUser)
         {
             if (inputUser == null)
-                return BadRequest(ModelState);
+                return BadRequest("please enter username and password");
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            _userService.CreatePassWordHash(inputUser.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            var existUser = _userService.GetUser(inputUser.Username);
+            if (existUser == null)
+            {
 
+            _userService.CreatePassWordHash(inputUser.Password, out byte[] passwordHash, out byte[] passwordSalt);
             var user = await _userService.AddUser(new User()
             {
                 Username = inputUser.Username,
@@ -65,6 +68,8 @@ namespace TodoListWebAPI.Controllers
                 UserTodos = Enumerable.Empty<TodoItem>()
             }) ;
             return Ok(user);
+            }
+            return BadRequest("try another username!");
         }
         [HttpPost("login")]
         public  ActionResult<string> Login(UserDto inputUser)
